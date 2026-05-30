@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>雙環流光指標卡組件 - 資料本地保存版</title>
+    <title>雙環流光指標卡組件 - 全透明資料本地保存版</title>
     <style>
         /* ==========================================
            1. 環境重置与基本樣式
@@ -16,7 +16,8 @@
         }
 
         body {
-            background-color: #0b0f19; /* 僅作測試背景用，組件本身是完全透明的 */
+            /* 移除原本的深色背景，改為完全透明，方便嵌入其他網頁 */
+            background-color: transparent; 
             display: flex;
             justify-content: center;
             align-items: center;
@@ -100,8 +101,10 @@
         .center-content {
             position: absolute;
             inset: 16cqw; 
-            background: rgba(17, 24, 27, 0.75); /* 微微提高遮罩不透明度，增強可讀性 */
-            backdrop-filter: blur(4px);
+            /* 【修改】將原本的深色背景改為完全透明 */
+            background: transparent; 
+            /* 【修改】移除模糊效果，確保背景完全乾淨透明 */
+            backdrop-filter: none;
             border-radius: 50%;
             display: flex;
             flex-direction: column;
@@ -165,7 +168,9 @@
         .edit-panel {
             position: absolute;
             inset: 0;
-            background: rgba(11, 15, 25, 0.98);
+            /* 【修改】點開設定時的面板背景，改為半透明磨砂感（高爽度科技感），若想全透可改為 rgba(0,0,0,0.9) 或 transparent */
+            background: rgba(11, 15, 25, 0.85);
+            backdrop-filter: blur(8px);
             border-radius: 50%;
             display: flex;
             flex-direction: column;
@@ -365,7 +370,7 @@
                 requestAnimationFrame(update);
             }
 
-            // 【新功能】初始化加載：優先讀取本地歷史快取資料
+            // 初始化加載：優先讀取本地歷史快取資料
             function initLoad() {
                 const savedTitle = localStorage.getItem(STORAGE_KEYS.title);
                 const savedValue = localStorage.getItem(STORAGE_KEYS.value);
